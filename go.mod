@@ -1,4 +1,4 @@
-module ngenx
+module github.com/jj-style/ngenx
 
 go 1.16
 
