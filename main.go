@@ -12,7 +12,7 @@ import (
 	"text/template"
 	"gopkg.in/yaml.v3"
 
-	. "ngenx/src"
+	. "github.com/jj-style/ngenx/src"
 )
 
 var (
