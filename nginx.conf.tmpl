@@ -1,0 +1,21 @@
+{{ range .Servers -}}
+server {
+    listen {{ if .Listen }}{{ .Listen }}{{ else }}80{{ end }};
+    server_name{{ range .ServerNames }} {{ . }}{{ end }};
+
+    /* default proxy headers */
+    proxy_set_header   Host $host;
+    proxy_set_header   X-Real-IP $remote_addr;
+    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header   X-Forwarded-Host $server_name;
+    {{ if .Proxy.Headers }}
+    /* additional proxy headers */
+    {{ range $key, $value := .Proxy.Headers }}proxy_set_header   {{ $key }} {{ $value }};
+    {{ end -}}
+    {{ end }}
+    location / {
+        proxy_pass {{ .Proxy.Url }};
+    }
+}
+
+{{ end }}

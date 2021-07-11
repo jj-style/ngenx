@@ -1,0 +1,13 @@
+servers:
+  - serverNames:
+      - subdomain.server
+    proxy:
+      url: http://proxied-request:3000/
+  - serverNames:
+      - anotherdomain.server
+      - www.anotherdomain.server
+    listen: 443
+    proxy:
+      url: http://1.2.3.4:8443
+      headers:
+        x-access: token
