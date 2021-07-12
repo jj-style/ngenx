@@ -11,6 +11,7 @@ import (
 	"strings"
 	"text/template"
 	"gopkg.in/yaml.v3"
+	_ "embed"
 
 	. "github.com/jj-style/ngenx/src"
 )
@@ -18,6 +19,12 @@ import (
 var (
 	inputFile  string
 	outputFile string
+
+	//go:embed nginx.conf.tmpl
+	nginxTemplate string
+)
+
+const (
 	defaultSpecFile = "spec.yaml"
 )
 
@@ -63,11 +70,11 @@ func main() {
 	config.Prepare()
 
 	// prepare the templater
-	nginxTmpl, err := ioutil.ReadFile("nginx.conf.tmpl")
-	if err != nil {
-		log.Fatal(fmt.Errorf("reading template file: %v", err))
-	}
-	tmpl, err := template.New("nginx").Parse(string(nginxTmpl))
+	//nginxTmpl, err := ioutil.ReadFile("nginx.conf.tmpl")
+	//if err != nil {
+	//	log.Fatal(fmt.Errorf("reading template file: %v", err))
+	//}
+	tmpl, err := template.New("nginx").Parse(nginxTemplate)
 	if err != nil {
 		log.Fatal(fmt.Errorf("parsing template: %v", err))
 	}
